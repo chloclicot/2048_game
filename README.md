@@ -8,7 +8,11 @@ et le joueur peut déplacer les tuiles dans quatre directions : haut, bas, gauch
 elles et obtenir le nombre 2048.
 (Ici on a décidé de ne pas limiter le jeu à 2048, le joueur peut continuer à jouer après avoir atteint ce score)
 
-## Fonctionnalités
+## Screenshots
+
+<img src="./screenshots/homescreen.png" alt="Screen de l'écran d'accueil" height="300">
+<img src="./screenshots/ingame.png" alt="Screen de l'écran d'accueil" height="300">
+<img src="./screenshots/gameover.png" alt="Screen de l'écran d'accueil" height="300">
 
 ### Conservation du High Score via les shared preferences
 Le joueur qui a quitté l'appli peut retrouver son meilleur score.
