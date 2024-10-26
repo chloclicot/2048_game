@@ -243,7 +243,11 @@ class _GrilleState extends State<Grille>{
       },
       child: Column(
         children: [
-          SizedBox(
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+            ),
             height: 400,
             width: 400,
             child: GridView.count(
@@ -290,36 +294,39 @@ class _GrilleState extends State<Grille>{
         });
   }
 
+  // Fonctions as très optimisées pour gérer la logique des déplacements
   void _addSwipe(
       SwipeDirection direction,
       ) {
     setState(() {
-      var mouve = false;
+      var mouve = false; // variable qui permet de savoir si on a bougé une case
       if(direction ==SwipeDirection.up){
+        // on parcours la grille de droite a gauche et de haut en bas
         for(Case c in cases){
+          // lorsqu'on rencontre une case non vide on conserve sa position
           if(c.getValue()!=0){
             var x = c.getIdx();
             var y = c.getIdy();
-            if(y>0){
+            if(y>0){ // si on est pas sur le bord nord de la grille
+              // parce qu'on veut décaler toutes les cases non vides vers le haut
               y--;
               var temp = Case.getCaseByIdxIdy(cases, y,x);
               while(temp.getValue()==0 && y>0){
                 y--;
                 temp = Case.getCaseByIdxIdy(cases, y,x);
               }
-              if(temp.getValue()==0){
+              if(temp.getValue()==0){ // si il y a de la place pour décaler la case jusqu'au bord nord
                 temp.setValue(c.getValue());
                 c.setValue(0);
                 mouve = true;
-
               }
-              else if(temp.getValue()==c.getValue()){
+               if(temp.getValue()==c.getValue()){ // si on peut fusionner
                 temp.setValue(c.getValue()*2);
                 c.setValue(0);
                 context.read<Scorer>().updateScore(temp.getValue());
                 mouve = true;
               }
-              else if(Case.getCaseByIdxIdy(cases, y+1, x).getValue()==0){
+              else if(Case.getCaseByIdxIdy(cases, y+1, x).getValue()==0){ //
                 Case.getCaseByIdxIdy(cases, y+1, x).setValue(c.getValue());
                 c.setValue(0);
                 mouve = true;
@@ -434,7 +441,7 @@ class _GrilleState extends State<Grille>{
           }
         }
       }
-      if(mouve){addRandom();}
+      if(mouve){addRandom();} // on ajoute une case aléatoire seulement si on a bougé une case
       if (checkGameOver()){
         _dialogueBuilder(context);
       }

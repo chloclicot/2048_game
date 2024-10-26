@@ -7,6 +7,7 @@ class AppBarCustomClipper extends CustomClipper<Path>{
     double width = size.width;
     var path = Path();
     path.lineTo(0, height - 50);
+    // pour dessiner une courbe de l'appbar
     path.quadraticBezierTo(width/2, height, width, height - 50);
     path.lineTo(width,0);
     path.close();
